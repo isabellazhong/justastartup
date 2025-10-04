@@ -4,7 +4,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #6b21a8 0%, #a78bfa 100%);
+  background: linear-gradient(135deg, #0a646e 0%, #5e9eae 100%);
   display: flex;
   align-items: flex-start;
   padding: 120px 80px;
@@ -38,7 +38,7 @@
 
 .get-started-btn {
   background: white;
-  color: #6b21a8;
+  color: #217594;
   border: none;
   padding: 16px 48px;
   font-size: 1.1rem;
