@@ -1,4 +1,4 @@
-interface Analytics {
+export interface Analytics {
     potential_market: string,
     competitors: string[],
     market_entry_barriers: string,

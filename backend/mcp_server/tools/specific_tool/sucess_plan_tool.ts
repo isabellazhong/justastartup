@@ -1,4 +1,4 @@
-interface SucessPlan {
+export interface SucessPlan {
     sucessPlan: string,
     productionPlan: string,
     marketingPlan: string,
