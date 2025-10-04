@@ -1,6 +1,6 @@
 import { GenerateContentResponse, GoogleGenAI } from "@google/genai"; 
 
-class GeminiAgent {
+export class MCPClient {
     /**
      * LLM Agent 
      */
@@ -9,7 +9,7 @@ class GeminiAgent {
 
     public constructor(model?: string){
         try {
-            GeminiAgent.client = new GoogleGenAI({apiKey: process.env.VITE_GEMINI_KEY}); 
+            MCPClient.client = new GoogleGenAI({apiKey: process.env.VITE_GEMINI_KEY}); 
             if (model) {
                 this.model = model;
             }
@@ -18,9 +18,9 @@ class GeminiAgent {
         }
     }
 
-    async getStringResponse(query: string, thinking?: number): Promise<GenerateContentResponse | undefined> {
+    async getResponse(query: string, thinking?: number): Promise<GenerateContentResponse | undefined> {
         try {
-            const response: GenerateContentResponse = await GeminiAgent.client.models.generateContent(
+            const response: GenerateContentResponse = await MCPClient.client.models.generateContent(
                 {
                     model: this.model,
                     contents: query,
@@ -37,6 +37,7 @@ class GeminiAgent {
             return undefined;
         }
     }
+
 
 }   
 
