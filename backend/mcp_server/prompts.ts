@@ -1,4 +1,4 @@
-interface SlideContext {
+export interface SlideContext {
     /**
      * Interface for context for the prompt 
      */
@@ -8,7 +8,7 @@ interface SlideContext {
     sucessPlan: string
 }
 
-function generate_text(context: SlideContext) {
+export function slide_text_prompt(context: SlideContext) {
     /**
      * Formats the prompt to create text for the pitch deck 
      */
