@@ -5,3 +5,4 @@ export interface SucessPlan {
     fianancePlan: string,
     growthPlan: string,
 }
+

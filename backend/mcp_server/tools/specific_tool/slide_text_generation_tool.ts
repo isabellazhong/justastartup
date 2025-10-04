@@ -1,7 +1,7 @@
 import { MCPTool } from "../tools";
 import z from "zod";
-import { slide_text_prompt, SlideContext } from '../../prompts.ts';
-import { GeminiAgent } from "../../llm/gemini.ts";
+import { slide_text_prompt, SlideContext } from '../../prompts';
+import { GeminiAgent } from "../../llm/gemini";
 
 /**
  * Parse the pitch deck context from JSON string summarized
@@ -14,7 +14,7 @@ const contextSchema = z.object({
     successPlan: z.string()
 });
 
-const tool: MCPTool = {
+const slide_text_tool: MCPTool = {
         name: "generate_slide_text",
         description: "Generates the pitch deck information per slide based on business proposal details.",
         parameters: {
@@ -68,4 +68,4 @@ const tool: MCPTool = {
         }
     }
 
-export default tool;
+export default slide_text_tool;

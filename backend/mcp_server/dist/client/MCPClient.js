@@ -1,38 +1,22 @@
-import { Client } from "@modelcontextprotocol/sdk/client/index.js";
-import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
-import { Analytics } from "../tools/specific_tool/analytics_tool";
-import { SlideDeck } from "../tools/specific_tool/slide_generation_tool";
-import { SucessPlan } from "../tools/specific_tool/sucess_plan_tool";
-
-interface BusinessProposal {
-    name: string;
-    idea: string; 
-}
-
-interface BusinessObjectsResult {
-    analytics: Analytics;
-    successPlan: SucessPlan; 
-    slideDeck: SlideDeck;
-    
-}
-
-export class MCPClient {
-    public client: Client; 
-    public transportClient: StdioClientTransport;
-
-    public constructor(){ 
-        this.client = new Client({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MCPClient = void 0;
+const index_js_1 = require("@modelcontextprotocol/sdk/client/index.js");
+const stdio_js_1 = require("@modelcontextprotocol/sdk/client/stdio.js");
+class MCPClient {
+    client;
+    transportClient;
+    constructor() {
+        this.client = new index_js_1.Client({
             name: "mcp-client-startup",
             version: "1.0.0"
         });
-        this.transportClient = new StdioClientTransport({
+        this.transportClient = new stdio_js_1.StdioClientTransport({
             command: "node",
-            args: ["./server.js"]
+            args: ["../server"]
         });
-
     }
-
-    async processProject({name, idea}: BusinessProposal) : Promise<BusinessObjectsResult> {
+    async processProject({ name, idea }) {
         await this.client.connect(this.transportClient);
         const analyticsRawResult = await this.client.callTool({
             name: "analytics_tool",
@@ -40,9 +24,8 @@ export class MCPClient {
                 name: name,
                 idea: idea
             }
-        }); 
-        const analyticsResult: Analytics = analyticsRawResult as unknown as Analytics;
-
+        });
+        const analyticsResult = analyticsRawResult;
         const sucessPlanRawResult = await this.client.callTool({
             name: "sucess_plan_tool",
             arguments: {
@@ -50,17 +33,15 @@ export class MCPClient {
                 idea: idea,
                 analytics: analyticsResult
             }
-        }); 
-
-        const sucessPlan: SucessPlan = sucessPlanRawResult as unknown as SucessPlan;
+        });
+        const sucessPlan = sucessPlanRawResult;
         // Prepare business context JSON expected by the slide text generator
         const businessContext = JSON.stringify({
             name,
             description: idea,
-            statistics: analyticsResult as any,
+            statistics: analyticsResult,
             successPlan: sucessPlan.sucessPlan ?? sucessPlan
         });
-
         // Call the slide text generation tool
         const slideTextRaw = await this.client.callTool({
             name: "generate_slide_text",
@@ -68,9 +49,7 @@ export class MCPClient {
                 businessContext: businessContext
             }
         });
-
-        const slideText = slideTextRaw as unknown;
-
+        const slideText = slideTextRaw;
         // Now call the slide deck generation tool which expects slide text as input.
         // The prompt said to assume a generateslidedeck exists; use the tool name "generate_slide_deck".
         const slideDeckRaw = await this.client.callTool({
@@ -79,16 +58,13 @@ export class MCPClient {
                 slideContent: slideText
             }
         });
-
-        const slideDeck: SlideDeck = slideDeckRaw as unknown as SlideDeck;
-
+        const slideDeck = slideDeckRaw;
         // Return assembled business objects
         return {
             analytics: analyticsResult,
             successPlan: sucessPlan,
             slideDeck
-        } as BusinessObjectsResult;
+        };
     }
-
-
 }
+exports.MCPClient = MCPClient;

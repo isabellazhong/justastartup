@@ -62,5 +62,10 @@ export class MCPServer {
 }
 
 const mcpServer = new MCPServer();
-await mcpServer.connect(); 
+// Use an IIFE to handle the async connection
+(async () => {
+    await mcpServer.connect();
+})().catch(err => {
+    console.error("Error connecting MCP server:", err);
+});
 
