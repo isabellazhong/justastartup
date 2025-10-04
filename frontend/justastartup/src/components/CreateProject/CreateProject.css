@@ -185,7 +185,7 @@
 }
 
 .button-group button[type="submit"] {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0a646e 0%, #5e9eae 100%);
   color: white;
   box-shadow: 0 4px 12px rgba(16, 75, 109, 0.4);
 }
