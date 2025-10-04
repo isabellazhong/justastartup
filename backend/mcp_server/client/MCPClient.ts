@@ -9,7 +9,7 @@ interface BusinessProposal {
 interface BusinessObjectsResult {
 }
 
-class MCPClient {
+export class MCPClient {
     public client: Client; 
     public transportClient: StdioClientTransport;
 
