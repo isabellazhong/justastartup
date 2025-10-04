@@ -1,43 +1,35 @@
-import { GenerateContentResponse, GoogleGenAI } from "@google/genai"; 
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 
-export class MCPClient {
-    /**
-     * LLM Agent 
-     */
-    public static client: GoogleGenAI;
-    public model: string = "gemini-2.5-flash";
+interface BusinessProposal {
+    name: string;
+    idea: string; 
+}
 
-    public constructor(model?: string){
-        try {
-            MCPClient.client = new GoogleGenAI({apiKey: process.env.VITE_GEMINI_KEY}); 
-            if (model) {
-                this.model = model;
-            }
-        } catch (e) {
-            console.log('Error intializing Gemini Agent', e);
-        }
+interface BusinessObjectsResult {
+}
+
+class MCPClient {
+    public client: Client; 
+    public transportClient: StdioClientTransport;
+
+    public constructor(){ 
+        this.client = new Client({
+            name: "mcp-client-startup",
+            version: "1.0.0"
+        });
+        this.transportClient = new StdioClientTransport({
+            command: "node",
+            args: ["../server"]
+        });
+
     }
 
-    async getResponse(query: string, thinking?: number): Promise<GenerateContentResponse | undefined> {
-        try {
-            const response: GenerateContentResponse = await MCPClient.client.models.generateContent(
-                {
-                    model: this.model,
-                    contents: query,
-                    config: {
-                        thinkingConfig: {
-                            thinkingBudget: thinking || 0
-                        }
-                    }
-                }
-            );
-            return response;
-        } catch (e) {
-            console.log("Error while getting response from Gemini", e);
-            return undefined;
-        }
+    async processProject(project: BusinessProposal) : Promise<BusinessObjectsResult> {
+        await this.client.connect(this.transportClient);
+        
+        
     }
 
 
-}   
-
+}

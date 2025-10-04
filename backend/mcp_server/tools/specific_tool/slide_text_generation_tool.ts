@@ -1,7 +1,7 @@
 import { MCPTool } from "../tools";
 import z from "zod";
 import { slide_text_prompt, SlideContext } from '../../prompts.ts';
-import { MCPClient } from "../../client/MCPClient.ts";
+import { GeminiAgent } from "../../llm/gemini.ts";
 
 /**
  * Parse the pitch deck context from JSON string summarized
@@ -43,8 +43,8 @@ const tool: MCPTool = {
                 const prompt = slide_text_prompt(slideContext);
                 
                 // Get response from Gemini
-                const geminiAgent = new MCPClient();
-                const response = await geminiAgent.getResponse(prompt);
+                const geminiAgent = new GeminiAgent();
+                const response = await geminiAgent.ask(prompt);
                 
                 if (!response) {
                     throw new Error("Failed to get response from Gemini");
