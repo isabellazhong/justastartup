@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { MCPClient } from '../client/MCPClient.ts';
-import * as slide_text_generation_tool from "./specific_tool/slide_text_generation_tool.ts"
+import { MCPClient } from '../client/MCPClient.js';
+import * as slide_text_generation_tool from "./specific_tool/slide_text_generation_tool.js"
 
 /**
  * MCP Tool definition with proper TypeScript typing
@@ -19,8 +19,7 @@ export interface MCPTool {
 /**
  * The array of tools for the MCP server
  */
-const tools: MCPTool[] = [
+export const tools: MCPTool[] = [
     slide_text_generation_tool.default
 ]
 
-export default tools;

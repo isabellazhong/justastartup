@@ -1,7 +1,7 @@
-import { MCPTool } from "../tools";
+import { MCPTool } from "../tools.js";
 import z from "zod";
-import { slide_text_prompt, SlideContext } from '../../prompts';
-import { GeminiAgent } from "../../llm/gemini";
+import { slide_text_prompt, SlideContext } from '../../prompts.js';
+import { GeminiAgent } from "../../llm/gemini.js";
 
 /**
  * Parse the pitch deck context from JSON string summarized

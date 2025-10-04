@@ -1,4 +1,4 @@
-import { MCPTool } from "../tools";
+import { MCPTool } from "../tools.js";
 
 export interface Analytics {
     potential_market: string,

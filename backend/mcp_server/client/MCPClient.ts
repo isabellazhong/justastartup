@@ -1,8 +1,8 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
-import { Analytics } from "../tools/specific_tool/analytics_tool";
-import { SlideDeck } from "../tools/specific_tool/slide_generation_tool";
-import { SucessPlan } from "../tools/specific_tool/sucess_plan_tool";
+import { Analytics } from "../tools/specific_tool/analytics_tool.js";
+import { SlideDeck } from "../tools/specific_tool/slide_generation_tool.js";
+import { SucessPlan } from "../tools/specific_tool/sucess_plan_tool.js";
 
 interface BusinessProposal {
     name: string;
@@ -27,7 +27,7 @@ export class MCPClient {
         });
         this.transportClient = new StdioClientTransport({
             command: "node",
-            args: ["./server.js"]
+            args: ["./dist/server.js"]
         });
 
     }
@@ -89,6 +89,4 @@ export class MCPClient {
             slideDeck
         } as BusinessObjectsResult;
     }
-
-
 }
