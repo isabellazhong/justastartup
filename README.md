@@ -13,4 +13,6 @@
 - npm install react
 - npm install vite
 - npm install @vitejs/plugin-react --save-dev
-- 
+- npm install --save-dev @types/node
+- npm install @modelcontextprotocol/sdk
+- npm install @google/genai
