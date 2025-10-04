@@ -1,5 +1,5 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import * as tools from "./tools/tools"
+import {tools, MCPTool} from "./tools/tools.js"
 import { 
   StdioServerTransport
 } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -20,7 +20,7 @@ export class MCPServer {
      * MCP Client that will generate the business analysis and pitch deck 
      */
    
-    private tools: tools.MCPTool[] = tools.default;
+    private tools: MCPTool[] = tools;
     private server: McpServer = server
     private transport: StdioServerTransport = new StdioServerTransport();
     private connected: boolean = false; 
@@ -62,5 +62,10 @@ export class MCPServer {
 }
 
 const mcpServer = new MCPServer();
-await mcpServer.connect(); 
+// Use an IIFE to handle the async connection
+(async () => {
+    await mcpServer.connect();
+})().catch(err => {
+    console.error("Error connecting MCP server:", err);
+});
 

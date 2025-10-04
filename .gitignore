@@ -3,4 +3,5 @@
 /justastartup/node_modules/@babel/core
 /justastartup/node_modules/@babel/helper-validator-identifier/lib
 /justastartup/node_modules
-/node_modules
+node_modules/
+**/node_modules/
