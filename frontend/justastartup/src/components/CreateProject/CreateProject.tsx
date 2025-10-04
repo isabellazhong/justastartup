@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './CreateProject.css'
+import logoImage from '../../assets/logo_justastartup.png'
 
 export default function CreateProject() {
   const [showPopup, setShowPopup] = useState(false)
@@ -9,7 +10,6 @@ export default function CreateProject() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     console.log('Project created:', { projectName, description })
-    // Add your project creation logic here
     setShowPopup(false)
     setProjectName('')
     setDescription('')
@@ -17,15 +17,25 @@ export default function CreateProject() {
 
   return (
     <div className="create-project-container">
-      <div className="new-project-box">
-        <button 
-          className="create-project-btn"
-          onClick={() => setShowPopup(true)}
-        >
-          Create New Project
-        </button>
+      {/* Left panel with title at top and logo at bottom */}
+      <div className="left-panel">
+        <div className="panel-title">Justastartup</div>
+        <img src={logoImage} alt="Justastartup Logo" className="logo-image" />
       </div>
 
+      {/* Right side content */}
+      <div className="right-content">
+        <div className="new-project-box">
+          <button 
+            className="create-project-btn"
+            onClick={() => setShowPopup(true)}
+          >
+            Create New Project
+          </button>
+        </div>
+      </div>
+
+      {/* Popup */}
       {showPopup && (
         <div className="popup-overlay" onClick={() => setShowPopup(false)}>
           <div className="project-popup" onClick={(e) => e.stopPropagation()}>
