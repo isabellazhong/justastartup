@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
-import Dashboard from './components/Dashboard'
-import CreateProject from './components/CreateProject'
+import {Dashboard, CreateProject} from './components';
+
 
 function App() {
   const [showCreateProject, setShowCreateProject] = useState(false)
