@@ -1,14 +1,16 @@
+import { useState } from 'react'
 import './App.css'
+import Dashboard from './components/Dashboard'
+import CreateProject from './components/CreateProject'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Welcome to Just A Startup</h1>
-        <p>Your app is ready to go!</p>
-      </header>
-    </div>
-  )
+  const [showCreateProject, setShowCreateProject] = useState(false)
+
+  if (showCreateProject) {
+    return <CreateProject />
+  }
+
+  return <Dashboard onGetStarted={() => setShowCreateProject(true)} />
 }
 
 export default App
