@@ -10,10 +10,9 @@
   background: white;
 }
 
-/* Left panel with logo */
 .left-panel {
-  width: 35%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 25%;
+  background: linear-gradient(135deg, #000000 0%, #2d2d2d 100%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -27,11 +26,13 @@
 }
 
 .logo-image {
-  max-width: 150px;
+  max-width: 100px;
   height: auto;
+  align-self: flex-start;
+  margin-bottom: -20px;
+  margin-left: -20px;
 }
 
-/* Right side content */
 .right-content {
   flex: 1;
   display: flex;
@@ -46,28 +47,27 @@
 }
 
 .create-project-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0a646e 0%, #5e9eae 100%);
   color: white;
   border: none;
-  padding: 18px 48px;
-  font-size: 1.1rem;
+  padding: 24px 64px;
+  font-size: 1.3rem;
   font-weight: 600;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 8px 20px rgba(16, 75, 109, 0.4);
 }
 
 .create-project-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 12px 28px rgba(16, 75, 109, 0.4);
 }
 
 .create-project-btn:active {
   transform: translateY(-1px);
 }
 
-/* Popup styles */
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -117,7 +117,7 @@
   margin-top: 0;
   margin-bottom: 28px;
   font-size: 1.8rem;
-  color: #2d3748;
+  color: #4a5f68;
   font-weight: 700;
 }
 
@@ -129,7 +129,7 @@
   display: block;
   margin-bottom: 10px;
   font-weight: 600;
-  color: #4a5568;
+  color: #4a5f68;
   font-size: 0.95rem;
 }
 
@@ -148,7 +148,7 @@
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #4b8b98;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
@@ -187,12 +187,12 @@
 .button-group button[type="submit"] {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 12px rgba(16, 75, 109, 0.4);
 }
 
 .button-group button[type="submit"]:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 16px rgba(16, 75, 109, 0.4);
 }
 
 .button-group button:active {
