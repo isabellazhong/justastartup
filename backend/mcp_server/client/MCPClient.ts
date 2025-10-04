@@ -1,5 +1,6 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+import { Analytics } from "../tools/specific_tool/analytics_tool";
 
 interface BusinessProposal {
     name: string;
@@ -7,6 +8,7 @@ interface BusinessProposal {
 }
 
 interface BusinessObjectsResult {
+    analytics: Analytics;
 }
 
 class MCPClient {
