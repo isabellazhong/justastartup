@@ -2,6 +2,7 @@
   "name": "justastartup-backend",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "app.ts",
   "scripts": {
     "dev": "nodemon app.ts",

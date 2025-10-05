@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CompanyOverview, AlphaVantageResponse, AlphaVantageError } from '../types/alphavantage';
+import { CompanyOverview, AlphaVantageResponse, AlphaVantageError } from '../types/alphavantage.js';
 
 class AlphaVantageService {
   private baseUrl = 'https://www.alphavantage.co/query';
