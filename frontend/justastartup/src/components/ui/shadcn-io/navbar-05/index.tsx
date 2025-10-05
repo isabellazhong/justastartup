@@ -1,8 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { useEffect, useState, useRef } from 'react';
-import { BellIcon, HelpCircleIcon, ChevronDownIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ChevronDownIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   NavigationMenu,
@@ -24,7 +24,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
+
 import { cn } from '@/lib/utils';
 
 
@@ -84,131 +84,21 @@ const HamburgerIcon = ({ className, ...props }: React.SVGAttributes<SVGElement>)
   </svg>
 );
 
-// Info Menu Component
-const InfoMenu = ({ onItemClick }: { onItemClick?: (item: string) => void }) => (
-  <DropdownMenu>
-    <DropdownMenuTrigger asChild>
-            <Button 
-        variant="ghost" 
-        size="icon" 
-        className="h-9 w-9 transition-colors"
-        style={{
-          color: '#ffffff',
-          backgroundColor: 'transparent'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.color = '#19183B';
-          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.color = '#ffffff';
-          e.currentTarget.style.backgroundColor = 'transparent';
-        }}
-      >
-        <HelpCircleIcon className="h-4 w-4" />
-        <span className="sr-only">Help</span>
-      </Button>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent align="end" className="w-56">
-      <DropdownMenuLabel>Help & Support</DropdownMenuLabel>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem onClick={() => onItemClick?.('help')}>
-        Help Center
-      </DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onItemClick?.('documentation')}>
-        Documentation
-      </DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onItemClick?.('contact')}>
-        Contact Support
-      </DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onItemClick?.('feedback')}>
-        Send Feedback
-      </DropdownMenuItem>
-    </DropdownMenuContent>
-  </DropdownMenu>
-);
 
-// Notification Menu Component
-const NotificationMenu = ({ 
-  notificationCount = 3, 
-  onItemClick 
-}: { 
-  notificationCount?: number;
-  onItemClick?: (item: string) => void;
-}) => (
-  <DropdownMenu>
-    <DropdownMenuTrigger asChild>
-      <Button 
-        variant="ghost" 
-        size="icon" 
-        className="h-9 w-9 relative transition-colors"
-        style={{
-          color: '#ffffff',
-          backgroundColor: 'transparent'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.color = '#19183B';
-          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.color = '#ffffff';
-          e.currentTarget.style.backgroundColor = 'transparent';
-        }}
-      >
-        <BellIcon className="h-4 w-4" />
-        {notificationCount > 0 && (
-          <Badge 
-            className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs"
-            style={{
-              backgroundColor: '#A1C2BD',
-              color: '#19183B'
-            }}
-          >
-            {notificationCount > 9 ? '9+' : notificationCount}
-          </Badge>
-        )}
-        <span className="sr-only">Notifications</span>
-      </Button>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent align="end" className="w-80">
-      <DropdownMenuLabel>Notifications</DropdownMenuLabel>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem onClick={() => onItemClick?.('notification1')}>
-        <div className="flex flex-col gap-1">
-          <p className="text-sm font-medium">New message received</p>
-          <p className="text-xs text-muted-foreground">2 minutes ago</p>
-        </div>
-      </DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onItemClick?.('notification2')}>
-        <div className="flex flex-col gap-1">
-          <p className="text-sm font-medium">System update available</p>
-          <p className="text-xs text-muted-foreground">1 hour ago</p>
-        </div>
-      </DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onItemClick?.('notification3')}>
-        <div className="flex flex-col gap-1">
-          <p className="text-sm font-medium">Weekly report ready</p>
-          <p className="text-xs text-muted-foreground">3 hours ago</p>
-        </div>
-      </DropdownMenuItem>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem onClick={() => onItemClick?.('view-all')}>
-        View all notifications
-      </DropdownMenuItem>
-    </DropdownMenuContent>
-  </DropdownMenu>
-);
+
 
 // User Menu Component
 const UserMenu = ({
   userName = 'John Doe',
   userEmail = 'john@example.com',
   userAvatar,
+  isAuthenticated = true,
   onItemClick
 }: {
   userName?: string;
   userEmail?: string;
   userAvatar?: string;
+  isAuthenticated?: boolean;
   onItemClick?: (item: string) => void;
 }) => (
   <DropdownMenu>
@@ -255,19 +145,26 @@ const UserMenu = ({
         </div>
       </DropdownMenuLabel>
       <DropdownMenuSeparator />
-      <DropdownMenuItem onClick={() => onItemClick?.('profile')}>
-        Profile
-      </DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onItemClick?.('settings')}>
-        Settings
-      </DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onItemClick?.('billing')}>
-        Billing
-      </DropdownMenuItem>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem onClick={() => onItemClick?.('logout')}>
-        Log out
-      </DropdownMenuItem>
+      {isAuthenticated ? (
+        <>
+          <DropdownMenuItem onClick={() => onItemClick?.('profile')}>
+            Profile
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => onItemClick?.('settings')}>
+            Settings
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={() => onItemClick?.('logout')}>
+            Log out
+          </DropdownMenuItem>
+        </>
+      ) : (
+        <>
+          <DropdownMenuItem onClick={() => onItemClick?.('login')}>
+            Log in
+          </DropdownMenuItem>
+        </>
+      )}
     </DropdownMenuContent>
   </DropdownMenu>
 );
@@ -285,10 +182,8 @@ export interface Navbar05Props extends React.HTMLAttributes<HTMLElement> {
   userName?: string;
   userEmail?: string;
   userAvatar?: string;
-  notificationCount?: number;
+  isAuthenticated?: boolean;
   onNavItemClick?: (href: string) => void;
-  onInfoItemClick?: (item: string) => void;
-  onNotificationItemClick?: (item: string) => void;
   onUserItemClick?: (item: string) => void;
 }
 
@@ -296,6 +191,7 @@ export interface Navbar05Props extends React.HTMLAttributes<HTMLElement> {
 const defaultNavigationLinks: Navbar05NavItem[] = [
   { href: '/about', label: 'About' },
   { href: '/create-project', label: 'Create' },
+  { href: '/projects', label: 'Projects' },
 ];
 
 export const Navbar05 = React.forwardRef<HTMLElement, Navbar05Props>(
@@ -308,10 +204,8 @@ export const Navbar05 = React.forwardRef<HTMLElement, Navbar05Props>(
       userName = 'John Doe',
       userEmail = 'john@example.com',
       userAvatar,
-      notificationCount = 3,
+      isAuthenticated = true,
       onNavItemClick,
-      onInfoItemClick,
-      onNotificationItemClick,
       onUserItemClick,
       ...props
     },
@@ -462,20 +356,13 @@ export const Navbar05 = React.forwardRef<HTMLElement, Navbar05Props>(
           </div>
           {/* Right side */}
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              {/* Info menu */}
-              <InfoMenu onItemClick={onInfoItemClick} />
-              {/* Notification */}
-              <NotificationMenu 
-                notificationCount={notificationCount}
-                onItemClick={onNotificationItemClick}
-              />
-            </div>
+
             {/* User menu */}
             <UserMenu 
               userName={userName}
               userEmail={userEmail}
               userAvatar={userAvatar}
+              isAuthenticated={isAuthenticated}
               onItemClick={onUserItemClick}
             />
           </div>
@@ -487,4 +374,4 @@ export const Navbar05 = React.forwardRef<HTMLElement, Navbar05Props>(
 
 Navbar05.displayName = 'Navbar05';
 
-export { Logo, HamburgerIcon, InfoMenu, NotificationMenu, UserMenu };
+export { Logo, HamburgerIcon, UserMenu };

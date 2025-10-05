@@ -1,12 +1,27 @@
 import './Landing.css'
 import TextType from '../TextType/TextType';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '../../database/supaBaseClient';
 
 export default function Landing() {
   const navigate = useNavigate();
 
-  const handleGetStarted = () => {
-    navigate('/login');
+  const handleGetStarted = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (session) {
+        // User is logged in, navigate to projects
+        navigate('/projects');
+      } else {
+        // User is not logged in, navigate to login
+        navigate('/login');
+      }
+    } catch (error) {
+      console.error('Error checking authentication:', error);
+      // If there's an error, default to login page
+      navigate('/login');
+    }
   };
   return (
     <div className="landing">
