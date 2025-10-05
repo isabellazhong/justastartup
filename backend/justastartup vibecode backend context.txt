@@ -1,0 +1,9 @@
+﻿<Goal>
+Creating a backend to interact with the frontend, where the service is a web app that will present information in a dashboard suitable for startup ideas, to see what kind of barriers to entry or what type of market the startup is entering. There will also be an option to make a pitch deck that will use the same information used in the dashboard.
+<Goal end>
+
+
+<Guidelines>
+1. The backend will be in Node.JS and our LLM used will be Google Gemini 2.5 flash.
+2. There will be api functions and json extraction functions needed to extract valuable information for our dashboard and pitch decks.
+<Guidelines end>
