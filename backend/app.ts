@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import companyRouter from './routers/company';
 
 // Load environment variables
 dotenv.config();
@@ -12,6 +13,9 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Routes
+app.use('/api/company', companyRouter);
 
 // Basic route
 app.get('/', (req, res) => {

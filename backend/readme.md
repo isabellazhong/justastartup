@@ -18,3 +18,9 @@ Folder Structure:
 Middleware functions will contain api functions and json extraction functions
 Routers will contain rest functions
 Types will contain interfaces for our objects
+
+
+dependencies:
+
+npm install axios
+
