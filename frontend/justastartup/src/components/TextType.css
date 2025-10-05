@@ -1,0 +1,40 @@
+.text-type {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+}
+
+.text-type__content {
+  font-size: 8rem;
+  font-weight: 900;
+  color: #E7F2EF;
+  text-align: left;
+  line-height: 0.9;
+  letter-spacing: -2px;
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.3),
+    0 0 20px rgba(255,255,255,0.2),
+    0 0 30px rgba(255,255,255,0.1),
+    2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.text-type__cursor {
+  display: inline-block;
+  margin-left: 2px;
+  font-size: 8rem;
+  font-weight: 900;
+  color: #E7F2EF;
+  animation: blink 1s infinite;
+}
+
+.text-type__cursor--hidden {
+  opacity: 0;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+  
