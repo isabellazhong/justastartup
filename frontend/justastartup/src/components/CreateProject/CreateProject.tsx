@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './CreateProject.css';
-import '../../pages/Pages.css';
+import '../../pages/CreateProjectPage/CreateProjectPage.css';
 
 interface CreateProjectProps {
   onSubmit?: (projectData: { name: string; description: string }) => void;

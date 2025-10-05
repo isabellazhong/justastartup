@@ -16,3 +16,4 @@
 - npm install --save-dev @types/node
 - npm install @modelcontextprotocol/sdk
 - npm install @google/genai
+- @supabase/supabase-js @supabase/auth-ui-react @supabase/auth-ui-shared
