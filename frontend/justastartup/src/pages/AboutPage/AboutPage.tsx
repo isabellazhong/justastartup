@@ -1,6 +1,7 @@
 import './AboutPage.css';
 import { useNavigate } from 'react-router-dom';
 import { AuthNavbar } from '../../components';
+import TextType from '../../components/TextType/TextType';
 import isacookies from '../../assets/isacookies.png';
 import market from '../../assets/market.png';
 import nerd from '../../assets/nerd.png';
@@ -19,7 +20,10 @@ export default function AboutPage() {
         <div className="about-page">
           <div className="about-content">
             <div className="about-hero">
-              <h1>About JustAStartUp</h1>
+              <div className="hero-title">
+                <h1>About</h1>
+                <TextType text={["JustAStartUp"]} typingSpeed={200} pauseDuration={1500} showCursor={true} cursorCharacter="|"/>
+              </div>
               <p className="hero-subtitle">Empowering founders with data-driven insights for smarter business decisions.</p>
             </div>
 
