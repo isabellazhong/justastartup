@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import CreateProject from '../components/CreateProject/CreateProject';
-import './Pages.css';
+import { Navbar05 } from '@/components/ui/shadcn-io/navbar-05';
 
 export default function CreateProjectPage() {
   const navigate = useNavigate();
@@ -15,16 +15,12 @@ export default function CreateProjectPage() {
   };
 
   return (
-    <div className="page-container">
-      <header className="page-header">
-        <button onClick={() => navigate('/')} className="back-button">
-          ← Back to Home
-        </button>
-        <h1>Justastartup</h1>
-      </header>
-      
-      <main className="page-content">
-        <CreateProject onSubmit={handleProjectSubmit} />
+    <div className="h-screen w-screen flex flex-col">
+      <Navbar05 />
+      <main className="flex-1 w-full flex items-center justify-center bg-gray-50">
+        <div className="w-full max-w-md">
+          <CreateProject onSubmit={handleProjectSubmit} />
+        </div>
       </main>
     </div>
   );
