@@ -3,15 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { AuthNavbar } from '../../components';
 import { supabase } from '../../database/supaBaseClient';
 import { useState, useEffect } from 'react';
-
-interface Project {
-  id: string;
-  name: string;
-  description: string;
-  created_at: string;
-  updated_at: string;
-  user_id: string;
-}
+import type { Project } from '../../database/load';
+import { 
+  loadCurrentUserProjects, 
+  subscribeToUserProjects, 
+  getCurrentUser 
+} from '../../database/load';
 
 export default function ProjectsPage() {
   const navigate = useNavigate();
@@ -24,58 +21,92 @@ export default function ProjectsPage() {
   };
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        fetchProjects(session.user.id);
-      } else {
+    let realtimeSubscription: any = null;
+
+    const initializeProjects = async () => {
+      try {
+        // Get initial session and load projects
+        const session = await getCurrentUser();
+        
+        if (session?.user) {
+          await loadProjects();
+          
+          // Set up real-time subscription
+          realtimeSubscription = subscribeToUserProjects(
+            session.user.id,
+            'startups', // Using startups table
+            () => {
+              console.log('Projects updated, reloading...');
+              loadProjects();
+            }
+          );
+        } else {
+          setLoading(false);
+          navigate('/login');
+        }
+      } catch (error) {
+        console.error('Error initializing projects:', error);
         setLoading(false);
-        navigate('/login');
       }
-    });
+    };
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session) {
-        fetchProjects(session.user.id);
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      if (session?.user) {
+        await loadProjects();
+        
+        // Clean up old subscription
+        if (realtimeSubscription) {
+          supabase.removeChannel(realtimeSubscription);
+        }
+        
+        // Set up new subscription
+        realtimeSubscription = subscribeToUserProjects(
+          session.user.id,
+          'startups', // Using startups table
+          () => {
+            console.log('Projects updated, reloading...');
+            loadProjects();
+          }
+        );
       } else {
+        if (realtimeSubscription) {
+          supabase.removeChannel(realtimeSubscription);
+        }
         navigate('/login');
       }
     });
 
-    return () => subscription.unsubscribe();
+    // Initialize on component mount
+    initializeProjects();
+
+    return () => {
+      subscription.unsubscribe();
+      if (realtimeSubscription) {
+        supabase.removeChannel(realtimeSubscription);
+      }
+    };
   }, [navigate]);
 
-  const fetchProjects = async (userId: string) => {
+  // Load projects using the centralized load method
+  const loadProjects = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
-        .from('projects')
-        .select('*')
-        .eq('user_id', userId)
-        .order('created_at', { ascending: false });
-
-      if (error) {
-        console.error('Error fetching projects:', error);
-        // If the table doesn't exist (404 error), treat it as no projects
-        if (error.message.includes('relation "public.projects" does not exist') || 
-            error.code === 'PGRST116' || 
-            error.message.includes('404')) {
-          console.log('Projects table does not exist yet, showing empty state');
-          setProjects([]);
-          setError(null);
-        } else {
-          setError('Failed to load projects');
-        }
+      setError(null);
+      
+      const result = await loadCurrentUserProjects('startups'); // Using startups table
+      
+      if (result.error) {
+        setError(result.error);
+        setProjects([]);
       } else {
-        setProjects(data || []);
+        setProjects(result.data || []);
         setError(null);
       }
     } catch (err) {
-      console.error('Unexpected error:', err);
-      // For network errors or table not found, show empty state
+      console.error('Error in loadProjects:', err);
+      setError('Failed to load projects');
       setProjects([]);
-      setError(null);
     } finally {
       setLoading(false);
     }
