@@ -6,7 +6,7 @@ export default function Landing() {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate('/create-project');
+    navigate('/login');
   };
   return (
     <div className="landing">
