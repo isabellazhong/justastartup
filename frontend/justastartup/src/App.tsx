@@ -7,7 +7,7 @@ function App() {
   const [showCreateProject, setShowCreateProject] = useState(false)
 
   if (showCreateProject) {
-    return <CreateProject />
+    return <CreateProject onBack={() => setShowCreateProject(false)} />
   }
 
   return <Dashboard onGetStarted={() => setShowCreateProject(true)} />

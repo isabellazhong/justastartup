@@ -2,7 +2,11 @@ import { useState } from 'react'
 import './CreateProject.css'
 import logoImage from '../../assets/logo_justastartup.png'
 
-export default function CreateProject() {
+interface CreateProjectProps {
+  onBack: () => void;
+}
+
+export default function CreateProject({ onBack }: CreateProjectProps) {
   const [showPopup, setShowPopup] = useState(false)
   const [projectName, setProjectName] = useState('')
   const [description, setDescription] = useState('')
@@ -20,6 +24,9 @@ export default function CreateProject() {
       {/* Left panel with title at top and logo at bottom */}
       <div className="left-panel">
         <div className="panel-title">Justastartup</div>
+        <button onClick={onBack} className="back-button">
+          ← Back to Dashboard
+        </button>
         <img src={logoImage} alt="Justastartup Logo" className="logo-image" />
       </div>
 
