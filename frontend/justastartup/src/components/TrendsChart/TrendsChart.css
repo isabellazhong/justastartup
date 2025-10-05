@@ -1,0 +1,167 @@
+.trends-chart-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chart-header {
+  margin-bottom: 20px;
+}
+
+.chart-header h2 {
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 1.8rem;
+}
+
+.chart-header p {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-form input,
+.search-form select,
+.search-form button {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+.search-form input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-form select {
+  min-width: 120px;
+}
+
+.search-form button {
+  background: linear-gradient(135deg, #0a646e 0%, #5e9eae 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  min-width: 100px;
+}
+
+.search-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.search-form button:active {
+  transform: translateY(0);
+}
+
+.chart-area {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  margin-top: 20px;
+  background-color: #fafafa;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.chart-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 15px 0;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 6px;
+}
+
+.chart-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chart-option strong {
+  color: #333;
+}
+
+.chart-option span {
+  background-color: #e8f4f8;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #0a646e;
+}
+
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  width: 100%;
+  color: #666;
+}
+
+.loading-indicator div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.loading-indicator div:after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 3px solid #ddd;
+  border-top: 3px solid #0a646e;
+  border-radius: 50%;
+  margin-left: 10px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-message {
+  padding: 15px;
+  margin: 15px 0;
+  background-color: #ffebee;
+  border-left: 5px solid #f44336;
+  color: #b71c1c;
+  border-radius: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-form {
+    flex-direction: column;
+  }
+  
+  .search-form input,
+  .search-form select,
+  .search-form button {
+    width: 100%;
+  }
+  
+  .chart-area {
+    height: 300px;
+  }
+}

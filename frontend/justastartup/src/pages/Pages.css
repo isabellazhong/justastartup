@@ -152,3 +152,79 @@ button[type="submit"]:hover {
 .popup button:hover {
   background: #218838;
 }
+
+/* Analytics Dashboard Styles */
+.analytics-content {
+  max-width: 1200px;
+  padding: 1.5rem;
+}
+
+.project-info-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.project-info-section h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.project-info-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.project-info-form .form-group {
+  flex: 1 1 45%;
+  margin-bottom: 1rem;
+}
+
+.analytics-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.analytics-section h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.trends-chart-wrapper {
+  min-height: 400px;
+}
+
+.chart-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  background: #f8f9fa;
+  border-radius: 0.25rem;
+  border: 1px dashed #dee2e6;
+}
+
+.chart-placeholder p {
+  color: #6c757d;
+  font-size: 1.1rem;
+}
+
+.action-button {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.action-button:hover {
+  background: #218838;
+}

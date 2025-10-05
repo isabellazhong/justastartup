@@ -8,9 +8,9 @@ export default function CreateProjectPage() {
   const handleProjectSubmit = (projectData: { name: string; description: string }) => {
     console.log('Project created:', projectData);
     // Here you can add logic to save to database
-    // For now, redirect to home after creation
+    // Navigate to analytics dashboard with the project data
     setTimeout(() => {
-      navigate('/');
+      navigate('/analytics', { state: { projectData } });
     }, 2000);
   };
 
