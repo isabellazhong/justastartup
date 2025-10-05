@@ -11,3 +11,10 @@ npm install
 #make sure you're still in the same directory as before! 
 tsc
 ```
+
+
+Folder Structure:
+
+Middleware functions will contain api functions and json extraction functions
+Routers will contain rest functions
+Types will contain interfaces for our objects
