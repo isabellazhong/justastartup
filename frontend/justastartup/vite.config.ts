@@ -14,4 +14,22 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    outDir: 'dist',
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          supabase: ['@supabase/supabase-js', '@supabase/auth-ui-react']
+        }
+      }
+    }
+  },
+  server: {
+    port: 3000
+  },
+  preview: {
+    port: 3000
+  }
 })
