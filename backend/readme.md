@@ -2,7 +2,7 @@
 1. Install all the dependencies 
 ```bash
 # make sure you are in the correct directory
-cd backend/mcp_server
+cd backend
 npm install 
 ```
 
