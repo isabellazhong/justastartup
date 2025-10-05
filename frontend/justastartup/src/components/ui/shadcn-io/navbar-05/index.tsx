@@ -88,9 +88,25 @@ const HamburgerIcon = ({ className, ...props }: React.SVGAttributes<SVGElement>)
 const InfoMenu = ({ onItemClick }: { onItemClick?: (item: string) => void }) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
-      <Button variant="ghost" size="icon" className="h-9 w-9">
+            <Button 
+        variant="ghost" 
+        size="icon" 
+        className="h-9 w-9 transition-colors"
+        style={{
+          color: '#ffffff',
+          backgroundColor: 'transparent'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.color = '#19183B';
+          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.color = '#ffffff';
+          e.currentTarget.style.backgroundColor = 'transparent';
+        }}
+      >
         <HelpCircleIcon className="h-4 w-4" />
-        <span className="sr-only">Help and Information</span>
+        <span className="sr-only">Help</span>
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end" className="w-56">
@@ -122,10 +138,32 @@ const NotificationMenu = ({
 }) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
-      <Button variant="ghost" size="icon" className="h-9 w-9 relative">
+      <Button 
+        variant="ghost" 
+        size="icon" 
+        className="h-9 w-9 relative transition-colors"
+        style={{
+          color: '#ffffff',
+          backgroundColor: 'transparent'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.color = '#19183B';
+          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.color = '#ffffff';
+          e.currentTarget.style.backgroundColor = 'transparent';
+        }}
+      >
         <BellIcon className="h-4 w-4" />
         {notificationCount > 0 && (
-          <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs">
+          <Badge 
+            className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs"
+            style={{
+              backgroundColor: '#A1C2BD',
+              color: '#19183B'
+            }}
+          >
             {notificationCount > 9 ? '9+' : notificationCount}
           </Badge>
         )}
@@ -175,10 +213,31 @@ const UserMenu = ({
 }) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
-      <Button variant="ghost" className="h-9 px-2 py-0 hover:bg-accent hover:text-accent-foreground">
+      <Button 
+        variant="ghost" 
+        className="h-9 px-2 py-0 transition-colors"
+        style={{
+          color: '#ffffff',
+          backgroundColor: 'transparent'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.color = '#19183B';
+          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.color = '#ffffff';
+          e.currentTarget.style.backgroundColor = 'transparent';
+        }}
+      >
         <Avatar className="h-7 w-7">
           <AvatarImage src={userAvatar} alt={userName} />
-          <AvatarFallback className="text-xs">
+          <AvatarFallback 
+            className="text-xs"
+            style={{
+              backgroundColor: '#A1C2BD',
+              color: '#19183B'
+            }}
+          >
             {userName.split(' ').map(n => n[0]).join('')}
           </AvatarFallback>
         </Avatar>
@@ -235,10 +294,8 @@ export interface Navbar05Props extends React.HTMLAttributes<HTMLElement> {
 
 // Default navigation links
 const defaultNavigationLinks: Navbar05NavItem[] = [
-  { href: '#', label: 'Home' },
-  { href: '#', label: 'Features' },
-  { href: '#', label: 'Pricing' },
-  { href: '#', label: 'About' },
+  { href: '/about', label: 'About' },
+  { href: '/create-project', label: 'Create' },
 ];
 
 export const Navbar05 = React.forwardRef<HTMLElement, Navbar05Props>(
@@ -297,9 +354,13 @@ export const Navbar05 = React.forwardRef<HTMLElement, Navbar05Props>(
       <header
         ref={combinedRef}
         className={cn(
-          'sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 [&_*]:no-underline',
+          'sticky top-0 z-50 w-full border-b backdrop-blur [&_*]:no-underline',
           className
         )}
+        style={{
+          backgroundColor: '#19183B',
+          borderBottomColor: '#708993'
+        }}
         {...props}
       >
         <div className="flex h-16 w-full items-center justify-between gap-4 px-4 md:px-6">
@@ -310,9 +371,21 @@ export const Navbar05 = React.forwardRef<HTMLElement, Navbar05Props>(
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
-                    className="group h-9 w-9 hover:bg-accent hover:text-accent-foreground"
+                    className="group h-9 w-9 transition-colors"
                     variant="ghost"
                     size="icon"
+                    style={{
+                      color: '#19183B',
+                      backgroundColor: 'transparent'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = '#19183B';
+                      e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = '#19183B';
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }}
                   >
                     <HamburgerIcon />
                   </Button>
@@ -341,8 +414,13 @@ export const Navbar05 = React.forwardRef<HTMLElement, Navbar05Props>(
             {/* Main nav */}
             <div className="flex items-center gap-6">
               <button
-                onClick={(e) => e.preventDefault()}
-                className="flex items-center space-x-2 text-primary hover:text-primary/90 transition-colors cursor-pointer"
+                onClick={() => {
+                  if (onNavItemClick) onNavItemClick('/');
+                }}
+                className="flex items-center space-x-2 transition-colors cursor-pointer"
+                style={{ color: '#19183B' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#A1C2BD'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#19183B'}
               >
                 <span className="hidden font-bold text-xl sm:inline-block">JustAStartUp</span>
               </button>
@@ -358,7 +436,19 @@ export const Navbar05 = React.forwardRef<HTMLElement, Navbar05Props>(
                             e.preventDefault();
                             if (onNavItemClick && link.href) onNavItemClick(link.href);
                           }}
-                          className="text-muted-foreground hover:text-primary py-1.5 font-medium transition-colors cursor-pointer group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+                          className="py-1.5 font-medium transition-colors cursor-pointer group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+                          style={{
+                            color: '#ffffff',
+                            backgroundColor: 'transparent'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.color = '#19183B';
+                            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.color = '#ffffff';
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                          }}
                         >
                           {link.label}
                         </NavigationMenuLink>
