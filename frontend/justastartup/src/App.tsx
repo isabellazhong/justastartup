@@ -1,16 +1,19 @@
-import { useState } from 'react'
-import './App.css'
-import {Dashboard, CreateProject} from './components';
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.css';
+import Home from './pages/home';
+import CreateProjectPage from './pages/CreateProjectPage';
 
 function App() {
-  const [showCreateProject, setShowCreateProject] = useState(false)
-
-  if (showCreateProject) {
-    return <CreateProject onBack={() => setShowCreateProject(false)} />
-  }
-
-  return <Dashboard onGetStarted={() => setShowCreateProject(true)} />
+  return (
+    <Router>
+      <div className="app">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/create-project" element={<CreateProjectPage />} />
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
 export default App
