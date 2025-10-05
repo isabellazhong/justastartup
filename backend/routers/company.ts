@@ -1,6 +1,6 @@
 import express from 'express';
-import alphaVantageService from '../services/alphavantage';
-import marketAnalysisService from '../services/marketAnalysis';
+import alphaVantageService from '../services/alphavantage.js';
+import marketAnalysisService from '../services/marketAnalysis.js';
 
 const router = express.Router();
 

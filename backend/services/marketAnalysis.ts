@@ -1,6 +1,6 @@
-import { CompanyOverview, StartupMarketAnalysis, PitchDeckData } from '../types/alphavantage';
-import { DataExtractionMiddleware } from '../middlewares/dataExtraction';
-import alphaVantageService from './alphavantage';
+import { CompanyOverview, StartupMarketAnalysis, PitchDeckData } from '../types/alphavantage.js';
+import { DataExtractionMiddleware } from '../middlewares/dataExtraction.js';
+import alphaVantageService from './alphavantage.js';
 
 /**
  * Service focused on startup market analysis and competitive intelligence

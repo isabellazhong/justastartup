@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import companyRouter from './routers/company';
+import companyRouter from './routers/company.js';
 
 // Load environment variables
 dotenv.config();

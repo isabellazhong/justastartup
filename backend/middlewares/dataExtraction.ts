@@ -1,4 +1,4 @@
-import { CompanyOverview, StartupMarketAnalysis, PitchDeckData } from '../types/alphavantage';
+import { CompanyOverview, StartupMarketAnalysis, PitchDeckData } from '../types/alphavantage.js';
 
 /**
  * Middleware to extract and analyze startup-relevant data from AlphaVantage company data
