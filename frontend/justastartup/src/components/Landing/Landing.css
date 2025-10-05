@@ -1,4 +1,4 @@
-.dashboard {
+.landing {
   position: fixed;
   top: 0;
   left: 0;
@@ -12,13 +12,13 @@
   margin: 0;
 }
 
-.dashboard-content {
+.landing-content {
   text-align: left;
   color: white;
   max-width: 600px;
 }
 
-.dashboard h1 {
+.landing h1 {
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 0rem;
@@ -27,7 +27,7 @@
   color: white;
 }
 
-.dashboard h3 {
+.landing h3 {
   font-size: 2rem;
   font-weight: 400;
   margin-top: 0.5rem;
