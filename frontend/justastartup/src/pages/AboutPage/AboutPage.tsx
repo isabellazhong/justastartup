@@ -1,13 +1,12 @@
 import './AboutPage.css';
 import { useNavigate } from 'react-router-dom';
-import { Navbar05 } from '@/components/ui/shadcn-io/navbar-05';
+import { AuthNavbar } from '../../components';
+import isacookies from '../../assets/isacookies.png';
+import market from '../../assets/market.png';
+import nerd from '../../assets/nerd.png';
 
 export default function AboutPage() {
   const navigate = useNavigate();
-
-  const handleNavClick = (href: string) => {
-    navigate(href);
-  };
 
   const handleGetStarted = () => {
     navigate('/create-project');
@@ -15,7 +14,7 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen w-screen flex flex-col">
-      <Navbar05 onNavItemClick={handleNavClick} />
+      <AuthNavbar />
       <main className="flex-1 w-full">
         <div className="about-page">
           <div className="about-content">
@@ -27,14 +26,14 @@ export default function AboutPage() {
             <div className="about-sections">
               <section className="about-section image-left">
                 <div className="section-image">
-                  <div className="placeholder-image">💡</div>
+                  <img src={isacookies} alt="Isa's Cookies - Our Inspiration" className="section-img" />
                 </div>
                 <div className="section-content">
                   <h2>Our Inspiration</h2>
                   <p>
                     One of our teammates started a small cookie business in grade 10 but didn't understand how pricing and market demand worked. 
                     They ended up selling cookies at a loss and realized how hard it is to start a business without proper guidance or market analysis. 
-                    That valuable experience inspired us to create JustAStartUp — a tool to help new founders understand their market and plan for sustainable growth.
+                    That valuable experience inspired us to create JustAStartUp, a tool to help new founders understand their market and plan for sustainable growth.
                   </p>
                 </div>
               </section>
@@ -49,13 +48,13 @@ export default function AboutPage() {
                   </p>
                 </div>
                 <div className="section-image">
-                  <div className="placeholder-image">🚀</div>
+                  <img src={market} alt="Market Analysis - What We Do" className="section-img" />
                 </div>
               </section>
 
               <section className="about-section image-left">
                 <div className="section-image">
-                  <div className="placeholder-image">🛠️</div>
+                  <img src={nerd} alt="Tech Development - How We Built It" className="section-img" />
                 </div>
                 <div className="section-content">
                   <h2>How We Built It</h2>
@@ -67,28 +66,7 @@ export default function AboutPage() {
                 </div>
               </section>
 
-              <section className="about-section image-right">
-                <div className="section-content">
-                  <h2>What We've Accomplished</h2>
-                  <div className="accomplishments">
-                    <div className="accomplishment-item">
-                      <span className="accomplishment-icon">📊</span>
-                      <p>Created a prototype that analyzes market data and generates pitch decks</p>
-                    </div>
-                    <div className="accomplishment-item">
-                      <span className="accomplishment-icon">💡</span>
-                      <p>Built an intuitive interface for startup founders with no prior business experience</p>
-                    </div>
-                    <div className="accomplishment-item">
-                      <span className="accomplishment-icon">🔗</span>
-                      <p>Learned how to connect multiple tools (Supabase, Node, React) into a smooth workflow</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="section-image">
-                  <div className="placeholder-image">🎯</div>
-                </div>
-              </section>
+
 
               <div className="about-cta">
                 <h2>Ready to start your journey?</h2>
