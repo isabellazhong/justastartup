@@ -10,7 +10,10 @@ export default function CreateProjectPage() {
     // Here you can add logic to save to database
     // For now, redirect to projects after creation
     setTimeout(() => {
-      navigate('/projects');
+      const params = new URLSearchParams();
+      params.set('name', projectData.name);
+      params.set('idea', projectData.description);
+      navigate(`/analytics?${params.toString()}`);
     }, 2000);
   };
 

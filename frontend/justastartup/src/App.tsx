@@ -5,6 +5,7 @@ import AboutPage from './pages/AboutPage/AboutPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import ProjectsPage from './pages/ProjectsPage/ProjectsPage';
 import SelectPage from './pages/SelectPage/SelectPage';
+import AnalyticsDashboardPage from './pages/AnalyticsDashboardPage';
 
 function App() {
   return (
@@ -17,7 +18,6 @@ function App() {
           <Route path='/about' element={<AboutPage/>} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/select" element={<SelectPage />} />
-          <Route path="/analytics" element={<AnalyticsDashboardPage />} />
         </Routes>
       </div>
     </Router>
