@@ -112,8 +112,14 @@ export default function ProjectsPage() {
     }
   };
 
-  const handleProjectClick = (projectId: string) => {
-    navigate(`/project/${projectId}`);
+  const handleProjectClick = (project: Project) => {
+    const params = new URLSearchParams();
+    if (project.name) params.set('name', project.name);
+    if ((project as any).idea || (project as any).description) {
+      const idea = (project as any).idea || (project as any).description || '';
+      params.set('idea', idea);
+    }
+    navigate(`/analytics?${params.toString()}`);
   };
 
   if (loading) {
@@ -173,7 +179,7 @@ export default function ProjectsPage() {
                 <div 
                   key={project.id}
                   className="project-card"
-                  onClick={() => handleProjectClick(project.id)}
+                  onClick={() => handleProjectClick(project)}
                 >
                   <div className="project-icon">🚀</div>
                   <h3 className="project-title">{project.name}</h3>

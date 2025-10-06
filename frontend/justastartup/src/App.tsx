@@ -18,6 +18,7 @@ function App() {
           <Route path='/about' element={<AboutPage/>} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/select" element={<SelectPage />} />
+          <Route path="/analytics" element={<AnalyticsDashboardPage />} />
         </Routes>
       </div>
     </Router>

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Chart, registerables } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import './TrendsChart.css';
@@ -6,17 +6,16 @@ import './TrendsChart.css';
 // Register all Chart.js components
 Chart.register(...registerables);
 
-// Define the structure of the API response
+// Define the structure of the processed chart data
 interface TrendsData {
-  series: {
-    labels: string[];
-    datasets: {
-      label: string;
-      data: number[];
-    }[];
-  };
-  queries: string[];
-  averages: Record<string, number> | null;
+  labels: string[];
+  datasets: Array<{
+    label: string;
+    data: number[];
+    borderColor?: string;
+    backgroundColor?: string;
+    borderWidth?: number;
+  }>;
 }
 
 interface TrendsChartProps {
@@ -39,52 +38,52 @@ export default function TrendsChart({name, idea}: TrendsChartProps) {
     
     try {
     // Get the API URL from environment variables or use a default
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      const apiUrl = 'http://localhost:8000';
     // Add name and idea parameters to the products request
       const productsParams = new URLSearchParams();
       productsParams.append('name', name);
       productsParams.append('idea', idea);
       
       // Make both API calls
-      const responseProducts = await fetch(`${apiUrl}/api/serp/related-words?${productsParams.toString()}`);
+      const responseProducts = await fetch(`${apiUrl}/api/gemini/related-words?${productsParams.toString()}`);
+      const responseProductsText = await responseProducts.json();
       
-      // Check if the products response is OK before parsing JSON
-      if (!responseProducts.ok) {
-        throw new Error(`Failed to fetch products data: ${responseProducts.status} ${responseProducts.statusText}`);
-      }
-      
-      const productsResult = await responseProducts.json();
       // Build query parameters
       const params = new URLSearchParams();
       if (geo) params.append('geo', geo);
       params.append('date', timeRange);
-      // The backend returns {response: string} where response is a comma-separated list
-      params.append('q', productsResult); 
+      // Use related words from the backend (comma-separated)
+      params.append('q', String(responseProductsText?.relatedWords || '')); 
     
-      
       // Make the API call
-      const responseChart = await fetch(`${apiUrl}/api/serp/trends/chart?${params.toString()}`);
-      
+      const responseChart = await fetch(`${apiUrl}/api/analytics/trends/chart?${params.toString()}`);
+
       // Check if the response is OK before parsing JSON
       if (!responseChart.ok) {
         // Just log the status without trying to parse the response
         throw new Error(`Failed to fetch trends data: ${responseChart.status} ${responseChart.statusText}`);
       }
       
-      // Process the chart response (only parse JSON if response was ok)
+      // Process the chart response
       const result = await responseChart.json();
-      
-      // Handle demo mode or successful response
-      if (result.demo) {
-        console.warn('Using demo data - API key not configured');
-        // Use demo data if available
-        setData(result.data);
-      } else {
-        setData(result.data);
-      }
-    } catch (err) {
-      console.error('Error fetching trends data:', err);
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+
+      // Use backend-provided datasets per query; add colors
+      const labelsFromApi = Array.isArray(result?.data?.labels) ? result.data.labels : [];
+      const datasetsFromApi: Array<{ label: string; data: number[] }> = Array.isArray(result?.data?.datasets)
+        ? result.data.datasets
+        : [];
+
+      const coloredDatasets = datasetsFromApi.map((ds, index) => ({
+        ...ds,
+        borderColor: `hsl(${(index * 137) % 360}, 70%, 60%)`,
+        backgroundColor: `hsl(${(index * 137) % 360}, 70%, 60%, 0.3)`,
+        borderWidth: 2,
+      }));
+
+      setData({
+        labels: labelsFromApi,
+        datasets: coloredDatasets,
+      });
     } finally {
       setLoading(false);
     }
@@ -111,7 +110,7 @@ export default function TrendsChart({name, idea}: TrendsChartProps) {
       },
       title: {
         display: true,
-        text: 'Google Trends Interest Over Time',
+        text: 'Google Trends Analysis of Similar Products',
         font: {
           size: 16,
         },
@@ -128,12 +127,20 @@ export default function TrendsChart({name, idea}: TrendsChartProps) {
           display: true,
           text: 'Interest',
         },
+        grid: {
+          drawBorder: false,
+          color: 'rgba(0,0,0,0.06)'
+        }
       },
       x: {
         title: {
           display: true,
           text: 'Date',
         },
+        grid: {
+          drawBorder: false,
+          color: 'rgba(0,0,0,0.06)'
+        }
       },
     },
     interaction: {
@@ -141,38 +148,27 @@ export default function TrendsChart({name, idea}: TrendsChartProps) {
       axis: 'x' as const,
       intersect: false,
     },
+    elements: {
+      line: {
+        tension: 0.25
+      },
+      point: {
+        radius: 2,
+        hoverRadius: 4
+      }
+    }
   };
 
-  // Generate random colors for datasets if not defined
-  const getDatasetWithColors = () => {
-    if (!data?.series.datasets) return [];
-    
-    return data.series.datasets.map((dataset, index) => {
-      // Generate a color based on the index
-      const hue = (index * 137) % 360; // Use golden angle approximation for better distribution
-      const color = `hsla(${hue}, 70%, 60%, 0.8)`;
-      
-      return {
-        ...dataset,
-        borderColor: color,
-        backgroundColor: `${color}33`, // Add transparency for the background
-        borderWidth: 2,
-        pointRadius: 3,
-        pointHoverRadius: 5,
-      };
-    });
-  };
-  
-  // Construct chart data from API response
+  // Construct chart data directly from processed datasets
   const chartData = data ? {
-    labels: data.series.labels,
-    datasets: getDatasetWithColors(),
+    labels: data.labels,
+    datasets: data.datasets,
   } : { labels: [], datasets: [] };
 
   return (
     <div className="trends-chart-container">
       <div className="chart-header">
-        <h2>Google Trends Analysis</h2>
+        <h2>Google Trends Analysis of Similar Products</h2>
         <p>Compare search interest over time for multiple terms</p>
       </div>
 
@@ -219,19 +215,6 @@ export default function TrendsChart({name, idea}: TrendsChartProps) {
           {data && (
             <Line data={chartData} options={chartOptions} />
           )}
-        </div>
-      )}
-      
-      {data?.averages && (
-        <div className="chart-options">
-          <div className="chart-option">
-            <strong>Averages: </strong>
-            {Object.entries(data.averages).map(([query, value]) => (
-              <span key={query}>
-                {query}: {value}
-              </span>
-            )).reduce((prev, curr, i) => i === 0 ? [curr] : [...prev, ' | ', curr], [] as React.ReactNode[])}
-          </div>
         </div>
       )}
     </div>

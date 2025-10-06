@@ -10,7 +10,7 @@ export default function AnalyticsDashboardPage() {
   const [loadingSummary, setLoadingSummary] = useState(false);
   const [summaryError, setSummaryError] = useState<string | null>(null);
 
-  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
   const canAnalyze = name.trim().length > 0 && idea.trim().length > 0;
 
@@ -74,7 +74,7 @@ export default function AnalyticsDashboardPage() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. EcoRide e-scooter"
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-800"
+                      className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-800 opacity-50"
                     />
                   </div>
                   <div>
@@ -85,7 +85,7 @@ export default function AnalyticsDashboardPage() {
                       onChange={(e) => setIdea(e.target.value)}
                       placeholder="Briefly describe the product and its value proposition"
                       rows={4}
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-800"
+                      className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-800 opacity-50"
                     />
                   </div>
                   <button
